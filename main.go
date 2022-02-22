@@ -50,15 +50,15 @@ func InitBlockchain() *Blockchain {
 }
 
 func main() {
-	chain := InitBlockchain()         //start the blockchain
-	chain.AddBlock("Busta's Block")   //adds new block to the blockchain
-	chain.AddBlock("Goodness' Block") //adds new block joining the first block
-	chain.AddBlock("Perelyn's Block") //adds new block to the second block
+	chain := InitBlockchain()        //start the blockchain
+	chain.AddBlock("Busta's Node")   //adds new block to the blockchain
+	chain.AddBlock("Goodness' Node") //adds new block joining the first block
+	chain.AddBlock("Perelyn's Node") //adds new block to the second block
 	// everybody gets a block
-	chain.AddBlock("Brymes' Block")
-	chain.AddBlock("Noble's Block")   //adds new block to the second block
-	chain.AddBlock("Hendrix's Block") //adds new block to the second block
-	chain.AddBlock("Oyin's Block")    //adds new block to the second block
+	chain.AddBlock("Brymes' Node")
+	chain.AddBlock("Noble's Node")   //adds new block to the second block
+	chain.AddBlock("Hendrix's Node") //adds new block to the second block
+	chain.AddBlock("Oyin's Node")    //adds new block to the second block
 
 	for _, block := range chain.blocks {
 		fmt.Printf("Previous Hash is: %s\n", block.PreviousHash)
