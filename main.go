@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"fmt"
 )
 
 // Block struct derives a scaffold for a single  block in reversed linked-list format
@@ -43,10 +44,20 @@ func (chain *Blockchain) AddBlock(data string) {
 	chain.blocks = append(chain.blocks, newBlock)
 }
 
+// InitBlockchain function starts the blockchain relying first on the Genesis block
 func InitBlockchain() *Blockchain {
 	return &Blockchain{[]*Block{Genesis()}}
 }
 
 func main() {
+	chain := InitBlockchain()         //start the blockchain
+	chain.AddBlock("Busta's Block")   //adds new block to the blockchain
+	chain.AddBlock("Goodness' Block") //adds new block joining the first block
+	chain.AddBlock("Perelyn's Block") //adds new block to the second block
 
+	for _, block := range chain.blocks {
+		fmt.Printf("Previous Hash is: %s\n", block.PreviousHash)
+		fmt.Printf("The data in the block is: %s\n", block.Data)
+		fmt.Printf("The current block's hash is: %s\n", block.Hash)
+	}
 }
