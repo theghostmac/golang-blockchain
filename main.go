@@ -31,9 +31,11 @@ func CreateBlock(data string, previousHash []byte) *Block {
 	return block
 }
 
-// AddBlock method points to the Blockchain and gives a data string
+// AddBlock method points to the Blockchain, adds a block to the chain, and gives a data string
 func (chain *Blockchain) AddBlock(data string) {
-
+	previousBlock := chain.blocks[len(chain.blocks)-1]
+	newBlock := CreateBlock(data, previousBlock.Hash)
+	chain.blocks = append(chain.blocks, newBlock)
 }
 
 func main() {
