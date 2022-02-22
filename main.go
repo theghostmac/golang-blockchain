@@ -24,11 +24,16 @@ func (b *Block) GetHash() {
 	b.Hash = hash[:]
 }
 
-// CreateBlock creates a new block and derives a hash
+// CreateBlock creates a new block and derives a hash for it
 func CreateBlock(data string, previousHash []byte) *Block {
 	block := &Block{[]byte{}, []byte(data), previousHash}
 	block.GetHash()
 	return block
+}
+
+// Genesis block function creates the first block, having only a data type
+func Genesis() *Block {
+	return CreateBlock("Genesis", []byte{})
 }
 
 // AddBlock method points to the Blockchain, adds a block to the chain, and gives a data string
@@ -36,6 +41,10 @@ func (chain *Blockchain) AddBlock(data string) {
 	previousBlock := chain.blocks[len(chain.blocks)-1]
 	newBlock := CreateBlock(data, previousBlock.Hash)
 	chain.blocks = append(chain.blocks, newBlock)
+}
+
+func InitBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{Genesis()}}
 }
 
 func main() {
