@@ -2,8 +2,11 @@ package blockchain
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/binary"
+	"fmt"
 	"log"
+	"math"
 	"math/big"
 )
 
@@ -42,4 +45,28 @@ func ToHex(num int64) []byte {
 		log.Panic(err)
 	}
 	return buffer.Bytes()
+}
+
+func (PoW *ProofOfWork) Run() (int, []byte) {
+	var intHash big.Int
+	var hash [32]byte
+
+	nonce := 0
+
+	// nonce is an infinite loop that hashes
+	for nonce < math.MaxInt64 {
+		data := PoW.InitData(nonce)
+		hash = sha256.Sum256(data)
+
+		fmt.Printf("\r%x", hash)
+		intHash.SetBytes(hash[:])
+
+		if intHash.Cmp(PoW.Target) == -1 {
+			break // hash is less than target
+		} else {
+			nonce++
+		}
+	}
+	fmt.Println()
+	return nonce, hash[:]
 }
