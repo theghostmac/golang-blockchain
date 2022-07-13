@@ -27,9 +27,12 @@ func CreateBlock(data string, previousBlockHash []byte) *Block {
 	return block
 }
 
+func (chain *Blockchain) AddBlock(data string) {
+	previousBlock := chain.blocks[len(chain.blocks)-1]
+	newBlock := CreateBlock(data, previousBlock.CurrentHash)
+	chain.blocks = append(chain.blocks, newBlock)
+}
+
 func main() {
-	block := &Block{[]byte{}, []byte(data), previousHash}
-	block.DeriveHash()
-	return block
 
 }

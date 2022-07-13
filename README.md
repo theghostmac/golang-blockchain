@@ -56,9 +56,13 @@ func CreateBlock(data string, previousBlockHash []byte) *Block {
 ```
 What we have now is a program that collects a data, hashes it, then creates a block to store it.
 What makes it a blockchain is if there exist more than one block linked together as a chain. 
-This means we have to create a Blockchain type of blocks:
+This means we have to create a `Blockchain` type of blocks, having an array of pointers to blocks:
 ```go
 type Blockchain struct {
 	blocks []*Block
 }
 ```
+Next, we will create a method that will merge a block to the chain. It will point to the `Blockchain` and 
+take in a string of data. We will take the previous block, create a new block, then merge the new block to 
+the chain of blocks. Given, it doesn't make any sense for the first block in the blockchain to have a
+`previousBlock`.
