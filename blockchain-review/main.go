@@ -33,6 +33,18 @@ func (chain *Blockchain) AddBlock(data string) {
 	chain.blocks = append(chain.blocks, newBlock)
 }
 
-func main() {
+func Genesis() *Block {
+	return CreateBlock("Genesis Block", []byte{})
+}
 
+func InitialBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{Genesis()}}
+}
+
+func main() {
+	chain := InitialBlockchain()
+
+	chain.AddBlock("This is the First Block after Genesis")
+	chain.AddBlock("This is the Second Block after Genesis")
+	chain.AddBlock("This is the Third Block after Genesis")
 }

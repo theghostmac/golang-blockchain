@@ -64,5 +64,27 @@ type Blockchain struct {
 ```
 Next, we will create a method that will merge a block to the chain. It will point to the `Blockchain` and 
 take in a string of data. We will take the previous block, create a new block, then merge the new block to 
-the chain of blocks. Given, it doesn't make any sense for the first block in the blockchain to have a
-`previousBlock`.
+the chain of blocks. 
+```go
+func (chain *Blockchain) AddBlock(data string) {
+	previousBlock := chain.blocks[len(chain.blocks)-1]
+	newBlock := CreateBlock(data, previousBlock.CurrentHash)
+	chain.blocks = append(chain.blocks, newBlock)
+}
+```
+Given, it doesn't make any sense for the first block in the blockchain to have a `previousBlock`. Thus,
+we will create a function that uses the first a.k.a Genesis block to create an initial version of the 
+blockchain. It will return a reference to the Blockchain type having an array of pointers to `Block` 
+while calling the Genesis function.
+```go
+func Genesis() *Block {
+	return CreateBlock("Genesis Block", []byte{})
+}
+
+func InitialBlockchain() *Blockchain {
+	return &Blockchain{[]*Block{Genesis()}}
+	
+}
+```
+
+Finally, let's link the entire blockchain system together in the `main` function.
