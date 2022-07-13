@@ -11,6 +11,10 @@ type Block struct {
 	PreviousHash []byte
 }
 
+type Blockchain struct {
+	blocks []*Block
+}
+
 func (b *Block) DeriveHash() {
 	newHashData := bytes.Join([][]byte{b.Data, b.PreviousHash}, []byte{})
 	hash := sha256.Sum256(newHashData)

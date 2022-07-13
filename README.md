@@ -48,5 +48,17 @@ data will be a string of data converted into a byte slice, and the `PreviousHash
 normally since it is already a byte slice. Moving on, we will call the `DeriveHash` method to 
 derive a hash for this new block, before it is returned. The method becomes:
 ```go
-func
+func CreateBlock(data string, previousBlockHash []byte) *Block {
+    block := &Block{[]byte{}, []byte(data), previousBlockHash}
+    block.DeriveHash()
+    return block
+}
+```
+What we have now is a program that collects a data, hashes it, then creates a block to store it.
+What makes it a blockchain is if there exist more than one block linked together as a chain. 
+This means we have to create a Blockchain type of blocks:
+```go
+type Blockchain struct {
+	blocks []*Block
+}
 ```
