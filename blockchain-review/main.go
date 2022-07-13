@@ -51,7 +51,7 @@ func main() {
 
 	for _, block := range chain.blocks {
 		fmt.Printf("Previous Hash: %x\n", block.PreviousHash)
-		fmt.Printf("Data contained in Block: %x\n", block.Data)
+		fmt.Printf("Data contained in Block: %s\n", block.Data)
 		fmt.Printf("Current Hash: %x\n", block.CurrentHash)
 	}
 }
