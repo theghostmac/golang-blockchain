@@ -1,8 +1,9 @@
-package blockchain_review
+package main
 
 import (
 	"bytes"
 	"crypto/sha256"
+	"fmt"
 )
 
 type Block struct {
@@ -18,7 +19,7 @@ type Blockchain struct {
 func (b *Block) DeriveHash() {
 	newHashData := bytes.Join([][]byte{b.Data, b.PreviousHash}, []byte{})
 	hash := sha256.Sum256(newHashData)
-	b.Hash = hash[:]
+	b.CurrentHash = hash[:]
 }
 
 func CreateBlock(data string, previousBlockHash []byte) *Block {
@@ -47,4 +48,10 @@ func main() {
 	chain.AddBlock("This is the First Block after Genesis")
 	chain.AddBlock("This is the Second Block after Genesis")
 	chain.AddBlock("This is the Third Block after Genesis")
+
+	for _, block := range chain.blocks {
+		fmt.Printf("Previous Hash: %x\n", block.PreviousHash)
+		fmt.Printf("Data contained in Block: %x\n", block.Data)
+		fmt.Printf("Current Hash: %x\n", block.CurrentHash)
+	}
 }
