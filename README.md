@@ -36,3 +36,5 @@ Moving further, we will create a `sum256` hash for the current block, depending 
 hash := sha256.Sum256(newHashData)
 b.Hash = hash[:]
 ```
+We may now proceed to write a function that creates the new block. It will receive a string of datq
+and the PreviousHash byte slice, and return a block type.
