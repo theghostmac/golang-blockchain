@@ -37,4 +37,16 @@ hash := sha256.Sum256(newHashData)
 b.Hash = hash[:]
 ```
 We may now proceed to write a function that creates the new block. It will receive a string of datq
-and the PreviousHash byte slice, and return a block type.
+and the `PreviousHash` byte slice, and returns a pointer to a `Block`:
+```go
+func CreateBlock(data string, PreviousHash []byte) *Block {
+	
+}
+```
+This method will create a block. For the CurrentHash, we will put in an empty byte slice, the
+data will be a string of data converted into a byte slice, and the `PreviousHash` will be passed
+normally since it is already a byte slice. Moving on, we will call the `DeriveHash` method to 
+derive a hash for this new block, before it is returned. The method becomes:
+```go
+func
+```

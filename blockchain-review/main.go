@@ -17,6 +17,15 @@ func (b *Block) DeriveHash() {
 	b.Hash = hash[:]
 }
 
+func CreateBlock(data string, previousBlockHash []byte) *Block {
+	block := &Block{[]byte{}, []byte(data), previousBlockHash}
+	block.DeriveHash()
+	return block
+}
+
 func main() {
+	block := &Block{[]byte{}, []byte(data), previousHash}
+	block.DeriveHash()
+	return block
 
 }
