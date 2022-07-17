@@ -1,7 +1,20 @@
 # Implementing a Blockchain in Go
+## Introduction
+Building a blockchain is different from developing on a blockchain network. While the latter is called 
+blockchain development, the former is called blockchain engineering. To implement blockchain technology, 
+you must learn a plethora of concepts that serve as the bedrock of the blockchain technology. This 
+article does not offer the theoretical knowledge required to build a blockchain network; instead it provides
+a practical and more hands-on approach to building a blockchain.
+
+## What is a blockchain
+Blockchain is a subset of distributed ledger technology. It is a kind of decentralized and distributed
+database ledger system used for making transactions open to everyone on the chain. One of the most critical feature 
+of blockchain technology that makes it different from several other database systems is timestamping.
+
 ## What a blockchain is made of
 A blockchain is made up of a chain of different blocks. Each of the blocks contains
-data that we want to add to the database. They also contain hashes of the past and next block.
+data (or transactions) that we want to add to the database. The transactions are grouped and appended
+to the blockchain as a unit. They also contain hashes of the past and next block.
 Using structs, we can group associated data to one custom type:
 ```go
 type Block struct {
@@ -87,4 +100,50 @@ func InitialBlockchain() *Blockchain {
 }
 ```
 
-Finally, let's link the entire blockchain system together in the `main` function.
+Finally, let's link the entire blockchain system together in the `main` function. This is done by
+creating a chain and initializing the blockchain. You can then go ahead to add data to as many 
+blocks as you want with the `AddBlock` function.
+To see the blocks as a blockchain, you can run a for loop to range through the contents of each block. 
+The main function looks thus:
+```go
+func main() {
+	chain := InitialBlockchain()
+
+	chain.AddBlock("This is the First Block after Genesis")
+	chain.AddBlock("This is the Second Block after Genesis")
+	chain.AddBlock("This is the Third Block after Genesis")
+
+	for _, block := range chain.blocks {
+		fmt.Printf("Previous Hash: %x\n", block.PreviousHash)
+		fmt.Printf("Data contained in Block: %s\n", block.Data)
+		fmt.Printf("Current Hash: %x\n", block.CurrentHash)
+	}
+}
+
+```
+
+The output after running the source file is similar to the following:
+```bash
+Previous Hash: 
+Data contained in Block: Genesis Block
+Current Hash: 89eb0ac031a63d2421cd05a2fbe41f3ea35f5c3712ca839cbf6b85c4ee07b7a3
+Previous Hash: 89eb0ac031a63d2421cd05a2fbe41f3ea35f5c3712ca839cbf6b85c4ee07b7a3
+Data contained in Block: This is the First Block after Genesis
+Current Hash: f89f193b0b7dfd647bf362fa4a8700aaf8434aedd1be079bb605166571aaefd8
+Previous Hash: f89f193b0b7dfd647bf362fa4a8700aaf8434aedd1be079bb605166571aaefd8
+Data contained in Block: This is the Second Block after Genesis
+Current Hash: 9e2e5b35b53748d12b3d39d9e32b970b05c3c8643b42bfdcbd5ee61a4088120c
+Previous Hash: 9e2e5b35b53748d12b3d39d9e32b970b05c3c8643b42bfdcbd5ee61a4088120c
+Data contained in Block: This is the Third Block after Genesis
+Current Hash: 4a6e691c26c0436c5fa748825ef355b72f7c057302387cec300d29e64aaa01e5
+```
+You will notice that the first `PreviousHash` is empty, as it is the `Genesis` block. If you rerun 
+the blockchain system, the hashes remain the same. If the data is chained in any block, the hash
+becomes something different.
+
+## Conclusion
+In this article, you gained a practical knowledge of how blockchain technology is implemented. We looked
+at how blocks are created and added to a blockchain. We moved further than creating the logic for the 
+genesis block and new blocks to creating the logic for the blockchain itself. In 
+subsequent tutorials, we will see how to set up a wallet and implement the proof of work consensus 
+protocol for our blockchain.
