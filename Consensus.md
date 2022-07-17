@@ -10,4 +10,21 @@ in the `main.go` file except the `main` function should be copied to the `block.
 the `Blockchain` struct and wherever it is used in the code. Next, import only the `fmt` package and the `blockchain` package you just created,
 to the `main.g`o file. We will now create the consensus algorithm for the Blockchain.
 
-## Implementing a Consensus Mechanism
+## Implementing a Consensus Algorithm
+There are different types of consensus algorithms to choose from. However, we will be adopting the Proof-of-Work algorithm used by
+bitcoin. PoW forces nodes in the network to do work in order to add a block to the chain. The work here is actually compute power as evident
+from the case of miners. The job of the miners in running the PoW algorithm contributes to the overall safety of the blockchain. 
+
+> if a user does work by signing a block, they need to show proof of this work done.
+
+The procedure involves the following steps:
+- collecting a data or transaction from the block, 
+- creating a counter (or nonce) initialized at 0,
+- creating a hash using the data and the counter,
+- checking the hash to see if it meets some standard requirements,
+- if it does not meet the requirements, we recreate another hash repeatedly until it does.
+
+The requirements include the following:
+- the first few bytes must contain 0s
+
+In the `PoW.go` file, we will create a `Difficulty` constant set to 12.
