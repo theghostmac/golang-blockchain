@@ -27,4 +27,6 @@ The procedure involves the following steps:
 The requirements include the following:
 - the first few bytes must contain 0s
 
-In the `PoW.go` file, we will create a `Difficulty` constant set to 12.
+In the `PoW.go` file, we will create a `Difficulty` constant set to an arbitrary value i.e., 12. The work done by the miners must be hard, but 
+the process of proving that work is done must be relatively easy. This difficulty will remain a constant for all miners, except in a production
+grade blockchain where the difficulty has to be incremented as time progresses.
