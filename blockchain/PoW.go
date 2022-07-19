@@ -70,3 +70,15 @@ func (PoW *ProofOfWork) Run() (int, []byte) {
 	fmt.Println()
 	return nonce, hash[:]
 }
+
+// Validate checks if the block is valid
+func (PoW *ProofOfWork) Validate() bool {
+	var intHash big.Int
+
+	data := PoW.InitData(PoW.Block.Nonce)
+
+	hash := sha256.Sum256(data)
+	intHash.SetBytes(hash[:])
+
+	return intHash.Cmp(PoW.Target) == -1
+}

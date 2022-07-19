@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golang-blockchain/blockchain"
+	"github.com/theghostmac/golang-blockchain/blockchain"
+	"strconv"
 )
 
 func main() {
@@ -21,4 +22,9 @@ func main() {
 		fmt.Printf("The data in the block is: %s\n", block.Data)
 		fmt.Printf("The current block's hash is: %s\n", block.Hash)
 	}
+
+	// added proof of work algorithm to the main function
+	PoW := blockchain.NewProof()
+	fmt.Printf("PoW: %s\n", strconv.FormatBool(PoW.Validate()))
+	fmt.Println()
 }
