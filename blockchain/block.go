@@ -1,16 +1,17 @@
 package blockchain
 
+import (
+	"bytes"
+	"encoding/gob"
+	"log"
+)
+
 // Block struct derives a scaffold for a single  block in reversed linked-list format
 type Block struct {
 	Hash         []byte
 	Data         []byte
 	PreviousHash []byte
 	Nonce        int
-}
-
-// Blockchain struct creates a chain of other blocks using the Block scaffold
-type Blockchain struct {
-	Blocks []*Block
 }
 
 //// GetHash method derives the hash
@@ -37,14 +38,14 @@ func Genesis() *Block {
 	return CreateBlock("Genesis", []byte{})
 }
 
-// AddBlock method points to the Blockchain, adds a block to the chain, and gives a data string
-func (chain *Blockchain) AddBlock(data string) {
-	previousBlock := chain.Blocks[len(chain.Blocks)-1]
-	newBlock := CreateBlock(data, previousBlock.Hash)
-	chain.Blocks = append(chain.Blocks, newBlock)
-}
+func (b *Block) Serialize() []byte {
+	var resultByteBuffer bytes.Buffer
+	encoder := gob.NewEncoder(&resultByteBuffer)
 
-// InitBlockchain function starts the blockchain relying first on the Genesis block
-func InitBlockchain() *Blockchain {
-	return &Blockchain{[]*Block{Genesis()}}
+	err := encoder.Encode(b)
+
+	if err != nil {
+		log.Panic(err)
+	}
+	return resultByteBuffer.Bytes()
 }
