@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	chain := blockchain.InitBlockchain() //start the blockchain
+	chain := blockchain.InitBlockchain() //start the blockchain from the Genesis block
 	chain.AddBlock("Busta's Node")       //adds new block to the blockchain
 	chain.AddBlock("OJ's Node")          //adds new block joining the first block
 	chain.AddBlock("Perelyn's Node")     //adds new block to the second block
